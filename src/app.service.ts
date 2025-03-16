@@ -1,7 +1,8 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+
 import { Product } from './core/domain/product';
-import { ProductRepository } from './core/ports/product-repository.port';
 import { PRODUCT_REPOSITORY } from './core/ports/constants/injection-tokens';
+import { ProductRepository } from './core/ports/product-repository.port';
 
 @Injectable()
 export class AppService {

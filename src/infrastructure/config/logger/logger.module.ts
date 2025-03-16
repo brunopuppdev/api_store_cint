@@ -1,4 +1,5 @@
-import { Module, Global } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
+
 import { WinstonLogger } from './winston.adapter';
 
 export const LOGGER_PORT = Symbol('LoggerPort');

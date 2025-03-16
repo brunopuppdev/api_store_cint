@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+
 import { PRODUCT_REPOSITORY } from '../../core/ports/constants/injection-tokens';
-import { PrismaService } from '../services/prisma.service';
 import { PrismaProductRepository } from '../adapters/prisma-product-repository.adapter';
+import { PrismaService } from '../services/prisma.service';
 
 @Module({
   providers: [

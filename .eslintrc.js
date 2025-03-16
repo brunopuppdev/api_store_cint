@@ -1,97 +1,99 @@
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['tsconfig.json', 'tsconfig.test.json'],
+    parser: '@typescript-eslint/parser',
+    project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
-    ecmaVersion: 2023,
     sourceType: 'module',
-    allowDefaultProject: true,
   },
   plugins: [
     '@typescript-eslint/eslint-plugin',
+    'import',
     'prettier',
-    'jest'
+    '@typescript-eslint',
+    'eslint-plugin-import'
   ],
   extends: [
-    'airbnb-base',
-    'prettier',
-    'plugin:jest/recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
   root: true,
   env: {
-    commonjs: true,
-    es6: true,
     node: true,
-    'jest/globals': true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'dist', 'node_modules'],
   rules: {
-    '@typescript-eslint/camelcase': 'off',
-    '@typescript-eslint/ban-ts-ignore': 'off',
-    'no-underscore-dangle': 'off',
-    'object-shorthand': ['error', 'always'],
-    'func-names': ['error', 'always'],
-    'no-var': 'error',
-    'no-useless-constructor': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    'class-methods-use-this': 'off',
-    'jest/no-focused-tests': 'warn',
-    'jest/no-test-callback': 'off',
-    'no-unused-vars': [
+    curly: 'error',
+    'prefer-const': 'error',
+    'prefer-destructuring': 'error',
+    'no-console': 'error',
+    'no-nested-ternary': 'error',
+    'no-debugger': 'error',
+    'no-new-wrappers': 'error',
+    'object-shorthand': 'error',
+    'no-return-await': 'error',
+    'consistent-return': 'error',
+    'no-unused-vars': 'off',
+    'no-unneeded-ternary': 'error',
+    'no-implicit-coercion': 'error',
+    'lines-between-class-members': ['error', 'always'],
+    'padding-line-between-statements': [
       'error',
-      {
-        vars: 'all',
-        args: 'none',
-      },
+      { blankLine: 'always', prev: '*', next: 'return' },
+      { blankLine: 'always', prev: '*', next: 'case' },
+      { blankLine: 'always', prev: '*', next: 'default' },
+      { blankLine: 'always', prev: '*', next: 'export' },
+      { blankLine: 'always', prev: '*', next: 'function' },
     ],
-    'max-classes-per-file': 'off',
-    'import/prefer-default-export': 'off',
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        ts: 'never',
-      },
-    ],
+    'prettier/prettier': 'error',
+    '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'error',
+    '@typescript-eslint/no-inferrable-types': 'error',
+    '@typescript-eslint/ban-types': 'error',
+    '@typescript-eslint/prefer-readonly': 'error',
+    '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+    '@typescript-eslint/await-thenable': 'error',
+    '@typescript-eslint/prefer-for-of': 'error',
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    // '@typescript-eslint/no-unsafe-call': [
-    //   'error',
-    //   {
-    //     exclude: ['$connect', '$disconnect', '$extends'],
-    //   },
-    // ],
-    '@typescript-eslint/no-unsafe-return': 'off',
-    '@typescript-eslint/unbound-method': 'off',
-    '@typescript-eslint/explicit-function-return-type': [
-      'warn',
-      {
-        allowExpressions: true,
-      },
-    ],
-    settings: {
-      'import/resolver': {
-        typescript: {
-          directory: `${__dirname}/tsconfig.json`,
-        },
-        node: {
-          extensions: ['.js', '.ts'],
-        },
-      },
-    },
-    semi: ['error', 'always'],
-    'prettier/prettier': [
+    'import/order': [
       'error',
       {
-        endOfLine: 'auto',
-        singleQuote: 'auto',
-      },
+        'newlines-between': 'always',
+        'groups': [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling', 'index']
+        ],
+        'pathGroups': [
+          {
+            'pattern': '@nestjs/**',
+            'group': 'external',
+            'position': 'before'
+          }
+        ],
+        'alphabetize': {
+          'order': 'asc',
+          'caseInsensitive': true
+        }
+      }
     ],
   },
+  settings: {
+    'import/resolver': {
+      'typescript': {
+        'alwaysTryTypes': true,
+        'project': './tsconfig.json'
+      },
+      'node': {
+        'extensions': ['.js', '.jsx', '.ts', '.tsx']
+      }
+    }
+  }
 };

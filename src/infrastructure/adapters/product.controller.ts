@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { FindAllProductsUseCase } from '../../application/use-cases/find-all-products.use-case';
 import { Product } from '../../core/domain/product';
 

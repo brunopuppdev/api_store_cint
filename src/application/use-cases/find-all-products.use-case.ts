@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from '../../core/domain/product';
-import { ProductRepository } from '../../core/ports/product-repository.port';
+
+import { Product } from '~/core/domain/product';
+import { ProductRepository } from '~/core/ports/product-repository.port';
 
 @Injectable()
 export class FindAllProductsUseCase {

@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { AppService } from './app.service';
 import { Product } from './core/domain/product';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Products')
 @Controller()

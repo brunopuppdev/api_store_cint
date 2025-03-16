@@ -1,13 +1,12 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.test.json',
+    project: 'tsconfig.test.json',
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'import'],
   extends: [
-    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
@@ -16,14 +15,20 @@ module.exports = {
     node: true,
     jest: true,
   },
-  // A configuração mais importante - especificar explicitamente quais arquivos analisar
-  files: ['test/**/*.ts', 'test/**/*.e2e-spec.ts'],
-  ignorePatterns: ['.eslintrc.js', 'node_modules/', 'dist/'],
+  ignorePatterns: ['.eslintrc.e2e.js'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-floating-promises': 'off',
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        'groups': [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling', 'index'],
+        ],
+        'alphabetize': { 'order': 'asc', 'caseInsensitive': true }
+      }
+    ],
   },
 };

@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "paths": {
+      "~/*": ["./src/*"]
+    },
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -19,6 +22,10 @@
     "noFallthroughCasesInSwitch": false,
     "types": ["node", "jest"]
   },
-  "include": ["src/**/*"],
+  "include": [
+    "./.eslintrc.js",
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }
