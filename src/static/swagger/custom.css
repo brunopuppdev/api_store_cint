@@ -1,0 +1,78 @@
+/* Personalização do header */
+.swagger-ui .topbar {
+    background-color: #690037;
+    padding: 10px 0;
+}
+
+.swagger-ui .info .title small.version-stamp{
+   background-color: #FA5A50;
+}
+
+
+/* Substituindo o logo */
+.swagger-ui .topbar-wrapper a {
+    background-image: url('/swagger/cint_logo_symbol_a_white_horizontal.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    width: 150px;
+    height: 40px;
+}
+
+.swagger-ui .topbar-wrapper svg {
+    display: none; /* Esconde o SVG original */
+}
+
+
+/* Cores dos botões principais */
+.swagger-ui .btn.execute {
+    background-color: #FA5A50;
+    border-color: #FA5A50;
+}
+
+.swagger-ui .btn.execute:hover {
+    background-color: #D94A41;
+}
+
+/* Cor do texto do header */
+.swagger-ui .topbar .download-url-wrapper .select-label {
+    color: white;
+}
+
+/* Cores dos métodos HTTP */
+.swagger-ui .opblock.opblock-get .opblock-summary{
+    background-color: #802655;
+}
+
+.swagger-ui .opblock.opblock-get{
+    background-color: #fff;
+}
+
+.swagger-ui .opblock.opblock-post {
+    border-color: #D94A41;
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary-method{
+    background: #994D74;
+}
+
+.swagger-ui .opblock .opblock-summary-operation-id, .swagger-ui .opblock .opblock-summary-path, .swagger-ui .opblock .opblock-summary-path__deprecated{
+    color: #fff
+}
+
+/* Título da página */
+.swagger-ui .info .title {
+    color: #000050;
+    font-weight: bold;
+}
+
+.swagger-ui .opblock.opblock-get{
+    box-shadow: none;
+    border-color: #222;
+}
+
+.swagger-ui .opblock-control-arrow svg{
+    fill: #fff
+}
+

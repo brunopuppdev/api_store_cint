@@ -3,6 +3,11 @@ import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+console.log(__dirname)
 
 export default tseslint.config(
   {
@@ -17,15 +22,22 @@ export default tseslint.config(
         ...globals.node,
         ...globals.jest,
       },
-      ecmaVersion: 5,
+      ecmaVersion: 2023,
       sourceType: 'module',
       parserOptions: {
+        project: ['./tsconfig.json', './tsconfig.test.json'],
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: __dirname,
+        allowAutomaticSingleRunInference: true,
+        allowDefaultProject: true
       },
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
     },
   },
   {
+    files: ['**/*.ts'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
