@@ -1,15 +1,17 @@
-// src/infrastructure/mappers/product.mapper.ts
-import { Product } from '../../core/domain/product';
+import { CashbackType } from '@prisma/client';
+import { Product } from '~/core/domain/product';
 
-// Defina explicitamente a interface
 interface PrismaProduct {
   id: number;
   name: string;
-  price: number;
   description: string | null;
+  price: number;
+  stock: number;
+  cashbackType: CashbackType;
+  cashbackValue: number;
+  pointsValue: number;
   image: string;
   category: string;
-  stock: number;
   status: string;
   createdAt: Date;
   updatedAt: Date;
@@ -27,7 +29,10 @@ function isPrismaProduct(obj: unknown): obj is PrismaProduct {
     typeof product.image === 'string' &&
     typeof product.category === 'string' &&
     typeof product.stock === 'number' &&
-    typeof product.status === 'string'
+    typeof product.status === 'string' &&
+    typeof product.cashbackType === 'string' &&
+    typeof product.cashbackValue === 'number' &&
+    typeof product.pointsValue === 'number'
   );
 }
 
@@ -43,11 +48,14 @@ export class ProductMapper {
     return {
       id: prismaProduct.id,
       name: prismaProduct.name,
-      price: prismaProduct.price,
       description: prismaProduct.description || undefined,
+      price: prismaProduct.price,
+      stock: prismaProduct.stock,
+      cashbackType: prismaProduct.cashbackType,
+      cashbackValue: prismaProduct.cashbackValue,
+      pointsValue: prismaProduct.pointsValue,
       image: prismaProduct.image,
       category: prismaProduct.category,
-      stock: prismaProduct.stock,
       status: prismaProduct.status,
     } as Product;
   }
@@ -57,11 +65,14 @@ export class ProductMapper {
   ): Omit<PrismaProduct, 'id' | 'createdAt' | 'updatedAt'> {
     return {
       name: domainProduct.name,
-      price: domainProduct.price,
       description: domainProduct.description || null,
+      price: domainProduct.price,
+      stock: domainProduct.stock,
+      cashbackType: domainProduct.cashbackType,
+      cashbackValue: domainProduct.cashbackValue,
+      pointsValue: domainProduct.pointsValue,
       image: domainProduct.image,
       category: domainProduct.category,
-      stock: domainProduct.stock,
       status: domainProduct.status,
     };
   }

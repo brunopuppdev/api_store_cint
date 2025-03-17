@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { logger } from '../src/infrastructure/config/logger/logger.singleton';
 
 const baseSchema = `
 generator client {

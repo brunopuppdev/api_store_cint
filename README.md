@@ -1,98 +1,139 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 Configuração do Banco de Dados com Prisma
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este guia explica como configurar, migrar e popular o banco de dados PostgreSQL usando Prisma no projeto [`api_store_cint`](https://github.com/bunopuppdev/api_store_cint).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📌 Pré-requisitos
 
-## Description
+Antes de começar, certifique-se de ter instalado:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Node.js](https://nodejs.org/) (v22 ou superior)
+- [PostgreSQL](https://www.postgresql.org/) instalado e em execução
+- Um banco de dados vazio criado no PostgreSQL
 
-## Project setup
+## 🛠️ Configuração Inicial
 
-```bash
-$ npm install
+### 1️⃣ Clone do Repositório
+
+```sh
+git clone https://github.com/bunopuppdev/api_store_cint.git
+cd api_store_cint
 ```
 
-## Compile and run the project
+### 2️⃣ Instalação das Dependências
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+npm install
 ```
 
-## Run tests
+### 3️⃣ Configuração do Arquivo `.env`
 
-```bash
-# unit tests
-$ npm run test
+Crie um arquivo `.env` na raiz do projeto e defina a URL de conexão com o banco de dados:
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```ini
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/dbname?schema=public"
 ```
 
-## Deployment
+> ⚠️ **Importante**: Substitua `usuario`, `senha` e ajuste o nome do banco conforme sua configuração local.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 📂 Estrutura do Prisma
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+O projeto utiliza uma abordagem modular para os modelos Prisma:
 
-```bash
-$ npm install -g mau
-$ mau deploy
+```
+prisma/
+ ├── base-schema.prisma   # Configuração básica do Prisma
+ ├── models/              # Modelos individuais
+ │   ├── User.prisma
+ │   ├── Product.prisma
+ │   └── ...
+ ├── schema.prisma        # Arquivo gerado automaticamente
+ └── seed.ts              # Script para popular o banco de dados
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 🚀 Configuração do Banco de Dados
 
-## Resources
+Utilizamos scripts no `package.json` para facilitar a configuração:
 
-Check out a few resources that may come in handy when working with NestJS:
+### 🔥 Primeira Configuração
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```sh
+npm run db:setup
+```
 
-## Support
+Esse comando realiza:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Mesclagem dos schemas modulares
+2. Criação da migração inicial
+3. Geração do Prisma Client
+4. Execução do seed para popular o banco
 
-## Stay in touch
+### 👀 Visualização dos Dados
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```sh
+npm run prisma:studio
+```
 
-## License
+O Prisma Studio abrirá no navegador em [http://localhost:5555](http://localhost:5555).
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 🛠️ Comandos Úteis
+
+| Comando                                             | Descrição                                         |
+| --------------------------------------------------- | ------------------------------------------------- |
+| `npm run merge-schemas`                             | Mescla os modelos Prisma                          |
+| `npm run prisma:migrate -- --name nome_da_migracao` | Cria uma nova migração                            |
+| `npm run db:reset`                                  | Reseta o banco de dados (⚠️ apaga todos os dados) |
+| `npm run prisma:seed`                               | Popula o banco com dados de teste                 |
+| `npm run prisma:generate`                           | Regenera o Prisma Client após mudanças no schema  |
+
+## 🛠️ Solução de Problemas
+
+### ❌ Erro de Conexão
+
+Se ocorrer um erro de conexão:
+
+1. Verifique se o PostgreSQL está rodando (`systemctl status postgresql` no Linux).
+2. Confirme se os dados no `.env` estão corretos.
+3. Confira se o banco de dados `store` existe no PostgreSQL.
+
+### ❌ Erros de Migração
+
+```sh
+npx prisma migrate reset --force
+```
+
+Isso recria todas as tabelas e apaga os dados existentes.
+
+### ❌ Erro de "Shadow Database"
+
+Se o Prisma reclamar do banco de "shadow":
+
+- Certifique-se de que o usuário do PostgreSQL tem permissão para criar bancos de dados.
+- Ou crie manualmente um banco `store_shadow`.
+
+## 🏗️ Estrutura dos Modelos
+
+Atualmente, os principais modelos do projeto são:
+
+- **`User`** - Usuários da plataforma
+- **`Product`** - Produtos disponíveis para venda
+
+Novos modelos podem ser adicionados conforme necessário.
+
+## 📢 Contribuição
+
+🔹 Para adicionar novos modelos:
+
+1. Crie um arquivo na pasta `prisma/models/` (ex: `Order.prisma`)
+2. Execute:
+   ```sh
+   npm run merge-schemas
+   npm run prisma:migrate -- --name add_order_model
+   ```
+3. Atualize `prisma/seed.ts` caso necessário
+
+📖 Para mais informações, consulte a [documentação oficial do Prisma](https://www.prisma.io/docs/).
+
+---
+
+💡 *Criado por **[Bruno Pupp](https://github.com/bunopuppdev)** 💻🚀*
+

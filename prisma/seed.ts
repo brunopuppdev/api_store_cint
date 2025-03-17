@@ -1,8 +1,7 @@
-import { WinstonLogger } from '../src/infrastructure/config/logger/winston.adapter';
-import { PrismaClient } from '@prisma/client'
+import { logger } from '../src/infrastructure/config/logger/logger.singleton';
+import { CashbackType, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-const logger = new WinstonLogger();
 
 async function main() {
 
@@ -16,6 +15,11 @@ async function main() {
         category: 'Tênis',
         stock: 50,
         status: 'available',
+        cashbackType: CashbackType.PERCENTAGE,
+        cashbackValue: 5.0,
+        pointsValue: 150,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'Adidas Ultraboost 21',
@@ -25,6 +29,11 @@ async function main() {
         category: 'Tênis',
         stock: 30,
         status: 'available',
+        cashbackType: CashbackType.FIXED_VALUE,
+        cashbackValue: 20.0,
+        pointsValue: 180,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'Puma RS-X',
@@ -34,6 +43,11 @@ async function main() {
         category: 'Tênis',
         stock: 20,
         status: 'available',
+        cashbackType: CashbackType.PERCENTAGE,
+        cashbackValue: 3.5,
+        pointsValue: 120,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'New Balance 574',
@@ -43,6 +57,11 @@ async function main() {
         category: 'Tênis',
         stock: 40,
         status: 'available',
+        cashbackType: CashbackType.PERCENTAGE,
+        cashbackValue: 4.0,
+        pointsValue: 100,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'Asics Gel-Kayano 28',
@@ -52,8 +71,14 @@ async function main() {
         category: 'Tênis',
         stock: 10,
         status: 'available',
+        cashbackType: CashbackType.FIXED_VALUE,
+        cashbackValue: 15.0,
+        pointsValue: 160,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ],
+
   });
 
   logger.log('Seed completed successfully!', 'PrismaSeed');
