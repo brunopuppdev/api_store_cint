@@ -10,6 +10,7 @@ model Product {
   cashbackType CashbackType @default(PERCENTAGE)
   cashbackValue Float      @default(0)
   pointsValue  Int         @default(0)
+  orderItems    OrderItem[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

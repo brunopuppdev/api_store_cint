@@ -1,0 +1,12 @@
+model Reward {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  pointsCost  Int
+  userRewards UserReward[]
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("rewards")
+}

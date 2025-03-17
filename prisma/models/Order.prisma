@@ -1,0 +1,26 @@
+model Order {
+  id             Int        @id @default(autoincrement())
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  status         OrderStatus @default(PENDING)
+  totalAmount    Float
+  discountAmount Float      @default(0)
+  finalAmount    Float
+  couponId       Int?
+  coupon         Coupon?    @relation(fields: [couponId], references: [id])
+  cashbackEarned Float      @default(0)
+  cashbackUsed   Float      @default(0)
+  pointsEarned   Int        @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  orderItems     OrderItem[]
+
+  @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
