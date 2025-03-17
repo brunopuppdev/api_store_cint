@@ -4,7 +4,7 @@ import * as winston from 'winston';
 
 import 'winston-daily-rotate-file';
 
-import { LoggerPort } from '../../../core/ports/output/logger.port';
+import { LoggerPort } from '~/core/ports/out/logger.port';
 
 interface TransformableInfo {
   level: string;

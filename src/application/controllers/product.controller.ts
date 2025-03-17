@@ -1,15 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { Product } from '~/core/domain/product';
 import { ProductDto } from '~/core/dto/product.dto';
-
-import { AppService } from './app.service';
-import { Product } from './core/domain/product';
+import { ProductService } from '~/core/services/product.service';
 
 @ApiTags('Products')
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+@Controller('products')
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
 
   @Get('products')
   @ApiOperation({
@@ -21,7 +20,7 @@ export class AppController {
     type: ProductDto,
     isArray: true,
   })
-  async getProducts(): Promise<Product[]> {
-    return this.appService.getAllProducts();
+  async findAll(): Promise<Product[]> {
+    return this.productService.findAll();
   }
 }

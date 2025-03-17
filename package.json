@@ -9,27 +9,23 @@
     "build": "nest build",
     "clean": "rm -rf dist node_modules && npm cache clean --force",
     "commit": "git add . & cz",
-
     "start": "nest start",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-
-    "format": "prettier --config prettier.config.js --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --config prettier.config.js --write \"src/**/*.ts\"",
     "lint": "npm-run-all --sequential lint:src lint:e2e",
-    "lint:src": "eslint \"{src,apps,libs,test}/**/*.ts\" --ignore-pattern \"**/test/e2e/**\"",
+    "lint:src": "eslint \"{src,apps,libs}/**/*.ts\" --ignore-pattern \"**/src/test/e2e/**\"",
     "lint-staged": "lint-staged",
-    "lint:src:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --ignore-pattern \"**/test/e2e/**\"",
+    "lint:src:fix": "eslint \"{src,apps,libs}/**/*.ts\" --fix --ignore-pattern \"**/src/test/e2e/**\"",
     "lint:fix": "npm-run-all --sequential format lint:src:fix lint:e2e:fix",
-    "lint:e2e": "eslint \"test/**/*.ts\" --config eslint.e2e.config.mjs",
-    "lint:e2e:fix": "eslint \"test/e2e/*.ts\" --config eslint.e2e.config.mjs --fix",
-
+    "lint:e2e": "eslint \"src/test/**/*.ts\" --config eslint.e2e.config.mjs",
+    "lint:e2e:fix": "eslint \"src/test/e2e/*.ts\" --config eslint.e2e.config.mjs --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-
+    "test:e2e": "jest --config ./src/test/jest-e2e.json",
     "merge-schemas": "ts-node prisma/merge-schemas.ts",
     "prisma:generate": "npm run merge-schemas && npx prisma generate",
     "prisma:seed": "npx prisma db seed",
@@ -39,8 +35,6 @@
     "prisma:reset": "npx prisma migrate reset",
     "db:setup": "npm run merge-schemas && npm run prisma:migrate:init && npm run prisma:generate && npm run prisma:seed",
     "db:reset": "npm run merge-schemas && npm run prisma:reset && npm run prisma:generate",
-
-
     "prepare": "husky install ./.husky"
   },
   "dependencies": {
@@ -91,29 +85,13 @@
     "prettier": "^3.5.3",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
-    "ts-jest": "^29.2.5",
+    "ts-jest": "^29.2.6",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsconfig-paths-jest": "^0.0.1",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.1"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   },
   "config": {
     "commitizen": {
