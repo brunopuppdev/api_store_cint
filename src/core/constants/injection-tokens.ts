@@ -3,5 +3,6 @@ export const TOKENS = {
     PRODUCT_REPOSITORY: 'ProductRepositoryPort',
     USER_REPOSITORY: 'UserRepositoryPort',
     ORDER_REPOSITORY: 'OrderRepositoryPort',
+    COUPON_REPOSITORY: 'CouponRepositoryPort',
   },
 };
