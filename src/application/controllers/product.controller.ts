@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { Product } from '~/core/domain/product';
-import { ProductDto } from '~/core/dto/product.dto';
+import { ProductResponseDto } from '~/core/dto/product/product-response.dto';
 import { ProductService } from '~/core/services/product.service';
 
 @ApiTags('Products')
@@ -10,14 +10,14 @@ import { ProductService } from '~/core/services/product.service';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Get('products')
+  @Get()
   @ApiOperation({
     summary: 'Listar todos os produtos',
     description: 'Retorna uma lista com todos os produtos disponíveis',
   })
   @ApiOkResponse({
     description: 'Lista de produtos recuperada com sucesso',
-    type: ProductDto,
+    type: ProductResponseDto,
     isArray: true,
   })
   async findAll(): Promise<Product[]> {

@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { CashbackType } from '~/core/enums';
 
-export class ProductDto {
+export class ProductResponseDto {
   @ApiProperty({
     type: Number,
     description: 'O id do produto',

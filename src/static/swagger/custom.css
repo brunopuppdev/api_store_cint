@@ -35,12 +35,14 @@
 }
 
 /* Cor do texto do header */
-.swagger-ui .topbar .download-url-wrapper .select-label {
-    color: white;
+.swagger-ui .topbar .download-url-wrapper .select-label,
+.swagger-ui .opblock .opblock-summary-description{
+    color: #fff;
 }
 
 /* Cores dos métodos HTTP */
-.swagger-ui .opblock.opblock-get .opblock-summary{
+.swagger-ui .opblock.opblock-get .opblock-summary,
+.swagger-ui .opblock.opblock-post .opblock-summary{
     background-color: #802655;
 }
 
@@ -57,7 +59,9 @@
     background: #994D74;
 }
 
-.swagger-ui .opblock .opblock-summary-operation-id, .swagger-ui .opblock .opblock-summary-path, .swagger-ui .opblock .opblock-summary-path__deprecated{
+.swagger-ui .opblock .opblock-summary-operation-id,
+.swagger-ui .opblock .opblock-summary-path,
+.swagger-ui .opblock .opblock-summary-path__deprecated{
     color: #fff
 }
 

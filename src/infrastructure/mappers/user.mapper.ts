@@ -1,72 +1,40 @@
-import { Order } from '~/core/domain/order';
-import { User } from '~/core/domain/user';
-import { UserReward } from '~/core/domain/user-reward';
+import { Injectable } from '@nestjs/common';
 
-interface PrismaUser {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-  orders: Order[] | undefined;
-  userRewards: UserReward[] | undefined;
-  cashbackBalance: number;
-  pointsBalance: number;
-}
+import { User, UserCreated } from '~/core/domain/user';
+import { UserCreateDto } from '~/core/dto/user/user-create.dto';
+import { UserResponseDto } from '~/core/dto/user/user-response.dto';
 
-function isPrismaUser(obj: unknown): obj is PrismaUser {
-  const user = obj as Partial<PrismaUser>;
-
-  return (
-    typeof user === 'object' &&
-    user !== null &&
-    typeof user.id === 'string' &&
-    typeof user.name === 'string' &&
-    typeof user.email === 'string' &&
-    typeof user.password === 'string' &&
-    typeof user.createdAt === 'object' &&
-    typeof user.updatedAt === 'object' &&
-    Array.isArray(user.orders) &&
-    Array.isArray(user.userRewards) &&
-    typeof user.cashbackBalance === 'number' &&
-    typeof user.pointsBalance === 'number'
-  );
-}
-
+@Injectable()
 export class UserMapper {
-  static toDomain(prismaUserData: unknown): User {
-    if (!isPrismaUser(prismaUserData)) {
-      throw new Error('Invalid Prisma Product data');
-    }
+  toEntity(dto: UserCreateDto): User {
+    return new User({
+      name: dto.name,
+      email: dto.email,
+      password: dto.password,
+    });
+  }
 
-    const prismaUser: PrismaUser = prismaUserData;
-
+  toDto(entity: User): UserResponseDto {
     return {
-      id: prismaUser.id,
-      name: prismaUser.name,
-      cashbackBalance: prismaUser.cashbackBalance,
-      createdAt: prismaUser.createdAt,
-      email: prismaUser.email,
-      orders: prismaUser.orders,
-      password: prismaUser.password,
-      pointsBalance: prismaUser.pointsBalance,
-      updatedAt: prismaUser.updatedAt,
-      userRewards: prismaUser.userRewards,
+      id: entity.id,
+      name: entity.name,
+      email: entity.email,
+      pointsBalance: entity.pointsBalance,
+      cashbackBalance: entity.cashbackBalance,
+      orders: entity.orders,
+      userRewards: entity.userRewards,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     };
   }
 
-  static toPesrsistence(
-    domainUser: User,
-  ): Omit<PrismaUser, 'id' | 'createdAt' | 'updatedAt'> {
+  toCreateDto(entity: User): UserCreated {
     return {
-      name: domainUser.name,
-      cashbackBalance: domainUser.cashbackBalance,
-      password: domainUser.password,
-      pointsBalance: domainUser.pointsBalance,
-      orders: domainUser.orders,
-      email: domainUser.email,
-      userRewards: domainUser.userRewards,
+      id: entity.id,
+      name: entity.name,
+      email: entity.email,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     };
   }
 }
